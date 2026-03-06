@@ -29,7 +29,7 @@ bot = commands.Bot(command_prefix="b! ", intents=intents)
 # Events
 
 @bot.event
-async def on_member_join(member, ctx):
+async def on_member_join(member):
     member = member
     channel_id = 1443544545261518850
     channel = bot.get_channel(channel_id)
