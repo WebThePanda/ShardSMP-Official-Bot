@@ -8,15 +8,39 @@ import os
 load_dotenv()
 token = os.getenv('token')
 clientid = os.getenv('botid')
-print(f"Token found: {token is not None}")
-print(f"Token length: {len(token) if token else 'None'}")
 
 # Intents
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 intents.messages = True
 
 # Bot Setup
 bot = commands.Bot(command_prefix="b! ", intents=intents)
+
+# Functions
+
+
+
+# Commands
+
+
+
+# Events
+
+@bot.event
+async def on_member_join(member, ctx):
+    member = member
+    channel_id = 1443544545261518850
+    channel = bot.get_channel(channel_id)
+    embed = discord.Embed(
+        title="Welcome to the community. 🐼",
+        description=f"Welcome {member} to the community server of WebThePanda. I hope you enjoy your stay.",
+        color=discord.Color.pink()
+    )
+    embed.set_author(member)
+    embed.set_footer(text="Made by WebThePanda")
+    if channel:
+        await channel.send()
 
 bot.run(token)
