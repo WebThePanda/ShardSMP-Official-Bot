@@ -41,6 +41,6 @@ async def on_member_join(member, ctx):
     embed.set_author(member)
     embed.set_footer(text="Made by WebThePanda")
     if channel:
-        await channel.send()
+        await channel.send(embed=embed)
 
 bot.run(token)
