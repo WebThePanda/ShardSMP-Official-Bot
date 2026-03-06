@@ -38,7 +38,7 @@ async def on_member_join(member):
         description=f"Welcome {member} to the community server of WebThePanda. I hope you enjoy your stay.",
         color=discord.Color.pink()
     )
-    embed.set_author(member)
+    embed.set_author(text=f"{member}")
     embed.set_footer(text="Made by WebThePanda")
     if channel:
         await channel.send(embed=embed)
