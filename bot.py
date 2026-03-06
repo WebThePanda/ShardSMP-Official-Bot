@@ -8,6 +8,8 @@ import os
 load_dotenv()
 token = os.getenv('token')
 clientid = os.getenv('botid')
+print(f"Token found: {token is not None}")
+print(f"Token length: {len(token) if token else 'None'}")
 
 # Intents
 intents = discord.Intents.default()
