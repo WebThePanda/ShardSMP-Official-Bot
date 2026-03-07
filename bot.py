@@ -130,7 +130,14 @@ async def sotw(ctx, dur: int):
 
     embed = discord.Embed(
         title="Staff of The Week",
-        description="Vote for this weeks best staff!\n\nThis weeks choices are:\n**WebThePanda (Owner): 0** votes\n**Cats (Cool Guy): 0** votes\n**Bamboot (Bot): 0** votes\n\n<t:{self.endTimeUnix}:R>",
+        description=(
+            "Vote for this weeks best staff!\n\n"
+            "This weeks choices are:\n"
+            "**WebThePanda (Owner): 0** votes\n"
+            "**Cats (Cool Guy): 0** votes\n"
+            "**Bamboot (Bot): 0** votes\n\n"
+            "<t:{self.endTimeUnix}:R>"
+        ),
         colour=discord.Color.blurple()
     )
 
