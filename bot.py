@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import json
 import asyncio
+import datetime
 
 # Load token and id from .env
 load_dotenv()
@@ -27,12 +28,13 @@ bot = commands.Bot(command_prefix="b! ", intents=intents)
 # Classes
 
 class SOTWButtons(discord.ui.View):
-    def __init__(self, panda_id, cats_id, bamboot_id, filename):
+    def __init__(self, panda_id, cats_id, bamboot_id, filename, endTimeUnix):
         super().__init__(timeout=None)
         self.p_id = panda_id
         self.c_id = cats_id
         self.b_id = bamboot_id
         self.filename = filename
+        self.endTimeUnix = endTimeUnix
 
         if os.path.exists(self.filename):
             with open(self.filename, "r") as f:
@@ -60,7 +62,8 @@ class SOTWButtons(discord.ui.View):
             "Staff of The Week!\nVote for this week's best staff!\n\nThis week's choices are:\n"
             f"**WebThePanda (Owner): {self.p_votes}** votes\n"
             f"**Cats (Owner's Alt): {self.c_votes}** votes\n"
-            f"**Bamboot (Bot): {self.b_votes}** votes"
+            f"**Bamboot (Bot): {self.b_votes}** votes\n\n"
+            f"<t:{self.endTimeUnix}:R>"
         )
         await interaction.response.edit_message(embed=embed, view=self)
 
@@ -113,6 +116,10 @@ async def sotw(ctx, dur: int):
     file_name = "sotw_data.json"
     duration = dur
 
+    start_time = datetime.now()
+
+    endTimeUnix = int(start_time + duration)
+
     if duration >= 3600:
         timeVal = duration // 3600
         unit = "hour" if timeVal == 1 else "hours"
@@ -126,12 +133,12 @@ async def sotw(ctx, dur: int):
 
     embed = discord.Embed(
         title="Staff of The Week",
-        description="Vote for this weeks best staff!\n\nThis weeks choices are:\n**WebThePanda (Owner): 0** votes\n**Cats (Cool Guy): 0** votes\n**Bamboot (Bot): 0** votes\n",
+        description="Vote for this weeks best staff!\n\nThis weeks choices are:\n**WebThePanda (Owner): 0** votes\n**Cats (Cool Guy): 0** votes\n**Bamboot (Bot): 0** votes\n\n<t:{endTimeUnix}:R>",
         colour=discord.Color.blurple()
     )
 
     if channel:
-        view = SOTWButtons(panda_id=panda, cats_id=cats, bamboot_id=bamboot, filename=file_name)
+        view = SOTWButtons(panda_id=panda, cats_id=cats, bamboot_id=bamboot, filename=file_name, endTimeUnix=endTimeUnix)
         msg = await channel.send(embed=embed, view=view)
         await ctx.send(f"Poll started in {channel.mention} for {timeDisplay}!")
 
