@@ -25,7 +25,7 @@ bot = commands.Bot(command_prefix="b! ", intents=intents)
 # Commands
 
 @bot.command(name="purge")
-@commands.has_permission(manage_messages=True)
+@commands.has_permissions(manage_messages=True)
 async def purge(ctx, amount: int):
     if amount <= 0:
         await ctx.send("Please specify a number greater than zero.")
