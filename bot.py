@@ -116,7 +116,7 @@ async def sotw(ctx, dur: int):
     file_name = "sotw_data.json"
     duration = dur
 
-    start_time = datetime.now()
+    start_time = int(datetime.now())
 
     endTimeUnix = int(start_time + duration)
 
