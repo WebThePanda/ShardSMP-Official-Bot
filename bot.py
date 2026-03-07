@@ -43,7 +43,7 @@ async def purge(ctx, amount: int):
 # Events
 
 @bot.event
-async def on_member_join(ctx, member):
+async def on_member_join(member):
     channel_id = 1443544545261518850
     channel = bot.get_channel(channel_id)
     embed = discord.Embed(
@@ -52,8 +52,8 @@ async def on_member_join(ctx, member):
         color=discord.Color.pink()
     )
     embed.set_author(
-        name=ctx.author.display_name,
-        icon_url=ctx.author.avatar.url
+        name=f"New Member: {member.display_name}",
+        icon_url=member.display_avatar.url
     )
     embed.set_footer(text="Made by WebThePanda")
     if channel:
