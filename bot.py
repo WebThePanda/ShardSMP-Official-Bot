@@ -128,17 +128,32 @@ async def sotw(ctx, dur: int):
         for child in view.children:
             child.disabled = True
         
+        id_map = {
+            "WebThePanda": view.p_id,
+            "Cats": view.c_id,
+            "Bamboot": view.b_id
+        }
+
         scores = {"WebThePanda": view.p_votes, "Cats": view.c_votes, "Bamboot": view.b_votes}
-        winner = max(scores, key=scores.get)
+        winner_name = max(scores, key=scores.get)
+
+        winner_id = id_map[winner_name]
+        member = ctx.guild.get_member(winner_id)
 
         end_embed = discord.Embed(
             title="Staff of The Week - Results",
-            description=f"The results are in!\n\nWinner: **{winner}** with **{scores[winner]}** votes.\n\nCongratulate them in <#{generalChat_id}>!",
+            description=f"The results are in!\n\nWinner: **{winner_name}** with **{scores[winner_]}** votes.\n\nCongratulate them in <#{generalChat_id}>!",
             color=discord.Color.gold()
         )
+        if member:
+            try:
+                await member.add_roles(winnerRole)
+            except discord.Forbidden:
+                pass
+        else:
+            pass
+        
         await msg.edit(embed=end_embed)
-        member = winner
-        await member.add_roles(winnerRole)
 
         if os.path.exists(file_name):
             os.remove(file_name)
