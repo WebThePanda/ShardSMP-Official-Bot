@@ -58,7 +58,7 @@ class SOTWButtons(discord.ui.View):
         embed = interaction.message.embeds[0]
         embed.description = (
             "Staff of The Week!\nVote for this week's best staff!\n\nThis week's choices are:\n"
-            f"**Panda (Owner): {self.p_votes}** votes\n"
+            f"**WebThePanda (Owner): {self.p_votes}** votes\n"
             f"**Cats (Owner's Alt): {self.c_votes}** votes\n"
             f"**Bamboot (Bot): {self.b_votes}** votes"
         )
