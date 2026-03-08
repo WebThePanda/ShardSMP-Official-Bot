@@ -63,7 +63,7 @@ async def on_member_join(member):
     )
     embed.set_image(url="https://i.imgur.com/Xt0RmUE.png")
     embed.set_footer(
-        name=f"Enjoy your stay",
+        text=f"Enjoy your stay",
         icon_url=member.guild.icon.url
     )
     
