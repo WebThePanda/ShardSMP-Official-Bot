@@ -52,12 +52,18 @@ async def on_member_join(member):
     
     embed = discord.Embed(
         title="Welcome to ShardSMP.",
-        description=f"<@&1049064880315052032> Hey {member.mention}",
+        description=(
+            f"<:1049064880315052032:1469864421114380329> Hey {member.mention}, fancy seeing you here!\n"
+            "Make sure to check out our channels and to have an awesome stay here at ShardSMP!\n"
+            "<:connectionHeart:1480198420718289026> **IP:** server-adress\n"
+            "<:mcBedrock:1480198677380333703> **Port:** port\n"
+            "<:shoppingCart:1480199374318600202> **Shop:** store-link\n"
+        ),
         color=discord.Color.pink()
     )
     embed.set_author(
-        name=f"New Member: {member.display_name}",
-        icon_url=member.display_avatar.url
+        name=f"Enjoy your stay",
+        icon_url=member.guild.icon.url
     )
     
     if channel:
