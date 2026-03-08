@@ -59,7 +59,7 @@ async def on_member_join(member):
             "<:mcBedrock:1480198677380333703> **Port:** port\n"
             "<:shoppingCart:1480199374318600202> **Shop:** store-link\n"
         ),
-        color=discord.Color.pink()
+        color=discord.Color.purple()
     )
     embed.set_image(url="https://i.imgur.com/Xt0RmUE.png")
     embed.set_footer(
