@@ -51,7 +51,7 @@ async def on_member_join(member):
     memberRole = member.guild.get_role(1443544544409948267)
     
     embed = discord.Embed(
-        title="Welcome to ShardSMP.",
+        title="Welcome to ShardSMP! 🥳",
         description=(
             f"<:pinkChicken:1480189572100001842> Hey {member.mention}, fancy seeing you here!\n"
             "Make sure to check out our channels and to have an awesome stay here at ShardSMP!\n"
@@ -62,7 +62,7 @@ async def on_member_join(member):
         color=discord.Color.pink()
     )
     embed.set_image(url="https://i.imgur.com/Xt0RmUE.png")
-    embed.set_author(
+    embed.set_footer(
         name=f"Enjoy your stay",
         icon_url=member.guild.icon.url
     )
