@@ -46,7 +46,7 @@ async def purge_error(ctx, error):
 # Welcome message + Autorole
 @bot.event
 async def on_member_join(member):
-    channel_id = 1443544545261518850
+    channel_id = 1443544545261518850, 1470121423161790560
     channel = bot.get_channel(channel_id)
     memberRole = member.guild.get_role(1443544544409948267)
     
@@ -118,7 +118,8 @@ counter = countingManager()
 
 @bot.event
 async def on_message(message):
-    countChannelID = 1480263240167723079
+    countChannelID = 1480263240167723079, 1470445117621010670
+
 
     if message.author.bot or message.channel.id != countChannelID:
         return
