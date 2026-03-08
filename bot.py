@@ -72,9 +72,73 @@ async def on_member_join(member):
     if memberRole:
         await member.add_roles(memberRole)
 
-@bot.command(name="test")
-async def test(ctx):
-    await ctx.send("<:pinkChicken:1480189572100001842>")
+# Counting System
+class countingManager:
+    def __init__(self, filePath="counts.json"):
+        self.filePath = filePath
+        self.data = self._loadData()
+    
+    def _loadData(self):
+        if os.path.exists(self.filePath):
+            with open(self.filePath, "r") as f:
+                return json.load(f)
+        return {"currentNum": 0, "lastUserID": None, "highScore": 0}
+    
+    def saveData(self):
+        with open(self.filePath, "w") as f:
+            json.dump(self.data, f, indent=4)
+    
+    def checkNum(self, userID, number):
+        expected = self.data["currentNum"] + 1
 
+        if number != expected:
+            self.reset()
+            return False, f"Wrong number! The next number was **{expected}**. Please restart at **1**."
+        
+        if userID == self.data["lastUserID"]:
+            self.reset()
+            return False, "You can't count twice in a row! Please restart at **1**"
+
+        self.data["currentNum"] = number
+        self.data["lastUserID"] = userID
+        
+        if number > self.data["highScore"]:
+            self.data["highScore"] = number
+        
+        self.saveData()
+        return True, "✅"
+    
+    def reset(self):
+        self.data["currentNum"] = 0
+        self.data["lastUserID"] = None
+        self.saveData()
+
+
+counter = countingManager()
+
+@bot.event
+async def on_message(message):
+    countChannelID = 1480263240167723079
+
+    if message.author.bot or message.channel.id != countChannelID:
+        return
+    
+    if message.content.isdigit():
+        num = int(message.content)
+        success, resultMSG = counter.checkNum(message.author.id, num)
+
+        if success:
+            await message.add_reaction("✅")
+        else:
+            await message.add_reaction("❌")
+            await message.channel.send(resultMSG)
+    
+    await bot.process_commands(message)
+
+@bot.command(name="countingscores")
+async def countscore(ctx):
+    current = counter.data["currentNum"]
+    high = counter.data["highScore"]
+    await ctx.send(f"📊 **Stats:**\n- Current: **{current}**\n- High Score: **{high}**")
 
 bot.run(token)
