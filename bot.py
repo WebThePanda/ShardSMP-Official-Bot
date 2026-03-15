@@ -9,7 +9,7 @@ import time
 
 # Load token and id from .env
 load_dotenv()
-token = os.environ['token'] or os.getenv('token')
+token = os.environ('token') or os.getenv('token')
 
 if token:
     print(f"✅ Token found! Length: {len(token)} characters.")
