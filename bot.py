@@ -147,7 +147,7 @@ async def countscore(ctx):
     await ctx.send(f"📊 **Stats:**\n- Current: **{current}**\n- High Score: **{high}**")
 
 #Tickets
-@bot.hybrid_command(name="ticketsetup", description="Use this command to setup the Ticket system.")
+@bot.tree.command(name="ticketsetup", description="Use this command to setup the Ticket system.")
 @commands.has_permissions(administrator=True)
 async def ticketsetup(ctx, channel: discord.TextChannel):
     await ctx.send(f"Ticket embed sent in {channel.mention}")
