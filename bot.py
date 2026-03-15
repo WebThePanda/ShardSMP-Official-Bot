@@ -9,7 +9,11 @@ import time
 
 # Load token and id from .env
 load_dotenv()
-token = os.getenv('token')
+token = os.environ.get('token') or os.getenv('token')
+
+if token is None:
+    print("FATAL ERROR: Token not found in environment variables!")
+    
 clientid = os.getenv('botid')
 
 # Intents
