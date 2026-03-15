@@ -21,6 +21,10 @@ intents.messages = True
 # Bot Setup
 bot = commands.Bot(command_prefix="s!", intents=intents)
 
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user.name}")
+
 # -- Purge --
 @bot.hybrid_command(name="purge", description="Deletes X amount of messages.")
 @commands.has_permissions(manage_messages=True)
@@ -33,15 +37,15 @@ async def purge(ctx, amount: int):
         deleted = await ctx.channel.purge(limit=amount + 1)
         await ctx.send(f"Purged {len(deleted) - 1} messages.", delete_after=5)
     except discord.Forbidden:
-        await ctx.send("I do not have the 'Manage Messages' permission to do this.", ephmeral=True)
+        await ctx.send("I do not have the 'Manage Messages' permission to do this.", ephemeral=True)
     except Exception as e:
-        await ctx.send(f"An error occured: {e}", ephmeral=True)
+        await ctx.send(f"An error occured: {e}", ephemeral=True)
 
 
 @purge.error
 async def purge_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You do not have the 'Manage Messages' permission to use this command.", ephmeral=True)
+        await ctx.send("You do not have the 'Manage Messages' permission to use this command.", ephemeral=True)
 
 # Welcome message + Autorole
 @bot.event
