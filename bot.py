@@ -165,6 +165,8 @@ async def ticketsetup(ctx, channel: discord.TextChannel):
 @bot.command(name="sync")
 @commands.is_owner()
 async def sync(ctx):
+    print("sync command triggered")  # Check your console
+    await ctx.send("Syncing...")     # Confirm bot can send messages
     bot.tree.copy_global_to(guild=ctx.guild)
     synced = await bot.tree.sync(guild=ctx.guild)
     await ctx.send(f"Done! {len(synced)} commands are now live in this server.")
