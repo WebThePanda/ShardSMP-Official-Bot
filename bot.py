@@ -155,7 +155,7 @@ async def countscore(ctx):
 @bot.hybrid_command(name="ticketsetup", description="Use this command to setup the Ticket system.")
 @commands.has_permissions(administrator=True)
 async def ticketsetup(ctx, channel: discord.TextChannel):
-    await ctx.send(f"Ticket embed sent in {channel.mention}", ephemeral=True)
+    pass
 
 
 #Sync
@@ -166,12 +166,19 @@ async def sync(ctx):
     await ctx.send("Syncing...")     # Confirm bot can send messages
     bot.tree.copy_global_to(guild=ctx.guild)
     synced = await bot.tree.sync(guild=ctx.guild)
-    await ctx.send(f"Done! {len(synced)} commands are now live in this server.")
+    await ctx.send(f"Done! {len(synced)} slash commands are now live in this server.")
 
 @sync.error
 async def sync_error(ctx, error):
     if isinstance(error, commands.NotOwner):
-        await ctx.send("Only the bot owner can use this command.")    
+        await ctx.send("Only the bot owner can use this command.")
+
+#Shutdown
+@bot.command(name="shutdown")
+@commands.is_owner()
+async def shutdown(ctx):
+    await ctx.send("Bot is shutting down.")
+    await bot.close()
 
 if __name__ == "__main__":
     if not token:
