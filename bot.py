@@ -191,6 +191,7 @@ async def shutdown(ctx):
     await ctx.send("Bot is shutting down.")
     await bot.close()
     os._exit(0)
+    print("Shutdown complete!")
 
 if __name__ == "__main__":
     if not token:
